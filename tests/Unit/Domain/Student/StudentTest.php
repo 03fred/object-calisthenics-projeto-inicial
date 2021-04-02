@@ -2,9 +2,11 @@
 
 namespace Alura\Calisthenics\Tests\Unit\Domain\Student;
 
+use Address;
 use Alura\Calisthenics\Domain\Email\Email;
 use Alura\Calisthenics\Domain\Student\Student;
 use Alura\Calisthenics\Domain\Video\Video;
+use FullName;
 use PHPUnit\Framework\TestCase;
 
 class StudentTest extends TestCase
@@ -13,12 +15,9 @@ class StudentTest extends TestCase
 
     protected function setUp(): void
     {
-        $email = new Email( 'email@example.com');
-        $this->student = new Student(
-            $email,
-            new \DateTimeImmutable('1997-10-15'),
-            'Vinicius',
-            'Dias',
+        $email = new Email('email@example.com');
+        $fullName = new FullName('Vinicius', 'Dias');
+        $adrress = new Address(
             'Rua de Exemplo',
             '71B',
             'Meu Bairro',
@@ -26,6 +25,7 @@ class StudentTest extends TestCase
             'Meu estado',
             'Brasil'
         );
+        $this->student = new Student($email, new \DateTimeImmutable('1997-10-15'), $fullName, $adrress);
     }
 
     public function testStudentWithoutWatchedVideosHasAccess()

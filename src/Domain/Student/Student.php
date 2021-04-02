@@ -2,44 +2,32 @@
 
 namespace Alura\Calisthenics\Domain\Student;
 
+use Address;
 use Alura\Calisthenics\Domain\Email\Email;
 use Alura\Calisthenics\Domain\Video\Video;
 use DateTimeImmutable;
 use DateTimeInterface;
+use FullName;
 use WatchedVideos;
 
 class Student
 {
     private string $email;
-    private DateTimeInterface $bd;
+    private DateTimeInterface $birthDate;
     private WatchedVideos $map;
-    private string $fName;
-    private string $lName;
-    public string $street;
-    public string $number;
-    public string $province;
-    public string $city;
-    public string $state;
-    public string $country;
+    private $fullName;
 
-    public function __construct(Email $email, DateTimeInterface $bd, string $fName, string $lName, string $street, string $number, string $province, string $city, string $state, string $country)
+    public function __construct(Email $email, DateTimeInterface $birthDate, FullName $fullName, Address $address)
     {
         $this->watchedVideos = $this->map;
         $this->email = $email;
-        $this->bd = $bd;
-        $this->fName = $fName;
-        $this->lName = $lName;
-        $this->street = $street;
-        $this->number = $number;
-        $this->province = $province;
-        $this->city = $city;
-        $this->state = $state;
-        $this->country = $country;
+        $this->birthDate = $birthDate;
+        $this->fullName = $fullName;
     }
 
     public function getFullName(): string
     {
-        return "{$this->fName} {$this->lName}";
+        return (string) $this->fullName;
     }
 
     public function getEmail(): string
@@ -47,9 +35,9 @@ class Student
         return $this->email;
     }
 
-    public function getBd(): DateTimeInterface
+    public function getBirthDate(): DateTimeInterface
     {
-        return $this->bd;
+        return $this->birthDate;
     }
 
     public function watch(Video $video, DateTimeInterface $date)
@@ -59,7 +47,7 @@ class Student
 
     public function hasAccess(): bool
     {
-        if($this->watchedVideos->count() ===  0){
+        if ($this->watchedVideos->count() ===  0) {
             return true;
         }
 
@@ -69,5 +57,9 @@ class Student
         return $firstDate->diff($today)->days <  90;
     }
 
-
+    public function age(): int
+    {
+        $today = new DateTimeImmutable();
+        return $this->birthDate->diff($today)->y;
+    }
 }
