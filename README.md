@@ -1,6 +1,6 @@
 # object-calisthenics-projeto-inicial
 
-#regras 
+#regras - Jeff Bay
  1. Não usar getter e setters
    1.1 tell don't ask
  2. Ter apenas 1 nível de indentação por método
@@ -12,5 +12,6 @@
  6. Tenha apenas 1 ponto (operador de acesso de objetos) por linha (instrução)
  7. Não abrevie (nunca)
  8. Mantenha suas classes (max 50 linhas) e pacotes pequenos (máx. 10 classes)
+ 9. Tenha no máximo 2 propriedades por classe
 
 
